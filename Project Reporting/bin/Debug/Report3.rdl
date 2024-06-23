@@ -1,0 +1,473 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.9.34616.47</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.9.34616.47</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2024-04-25T22:47:08.1280554Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="ProjectCube">
+      <DataSourceReference>ProjectCube</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>bcf86c5a-7548-4715-a737-6749b05fb3ba</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>ProjectCube</DataSourceName>
+        <CommandText>WITH 
+MEMBER Continent AS
+IIF(
+	[Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Austria]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Belgium]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Denmark]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Finland]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[France]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Germany]
+	OR [Customers].[Country].CurrentMember IS [Customers]. [Country].&amp;[Ireland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Italy]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Norway]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Poland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Portugal]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Spain]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Sweden]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Switzerland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[United Kingdom],
+	"Europe",
+IIF(
+	[Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[United States]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Argentina]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Brazil]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Venezuela]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Mexico]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Canada],
+	"Amérique",
+	"ERROR"
+	)
+)
+
+SELECT
+non empty{{Continent, [Measures].[Quantity]}} ON 0,
+NONEMPTY (EXCEPT([Customers].[Country].[Country], {[Customers].[Country].&amp;[Unknown]})) ON 1
+FROM [Project]</CommandText>
+        <rd:DesignerState>
+          <QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
+            <CommandType>MDX</CommandType>
+            <Type>Query</Type>
+            <QuerySpecification xsi:type="MDXQuerySpecification">
+              <Select>
+                <Items>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Customers</DimensionName>
+                      <HierarchyName>Country</HierarchyName>
+                      <HierarchyUniqueName>[Customers].[Country]</HierarchyUniqueName>
+                      <LevelName>Country</LevelName>
+                      <UniqueName>[Customers].[Country].[Country]</UniqueName>
+                    </ID>
+                    <ItemCaption>Country</ItemCaption>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Continent</MeasureName>
+                      <UniqueName>[Measures].[Continent]</UniqueName>
+                    </ID>
+                    <ItemCaption>Continent</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Quantity</MeasureName>
+                      <UniqueName>[Measures].[Quantity]</UniqueName>
+                    </ID>
+                    <ItemCaption>Quantity</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                </Items>
+              </Select>
+              <AutoExecute>false</AutoExecute>
+              <From>Project</From>
+              <Filter>
+                <FilterItems />
+              </Filter>
+              <Calculations />
+              <Aggregates />
+              <QueryProperties />
+            </QuerySpecification>
+            <Query>
+              <Statement>WITH 
+MEMBER Continent AS
+IIF(
+	[Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Austria]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Belgium]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Denmark]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Finland]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[France]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Germany]
+	OR [Customers].[Country].CurrentMember IS [Customers]. [Country].&amp;[Ireland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Italy]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Norway]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Poland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Portugal]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Spain]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Sweden]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Switzerland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[United Kingdom],
+	"Europe",
+IIF(
+	[Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[United States]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Argentina]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Brazil]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Venezuela]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Mexico]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Canada],
+	"Amérique",
+	"ERROR"
+	)
+)
+
+SELECT
+non empty{{Continent, [Measures].[Quantity]}} ON 0,
+NONEMPTY (EXCEPT([Customers].[Country].[Country], {[Customers].[Country].&amp;[Unknown]})) ON 1
+FROM [Project]</Statement>
+              <ParameterDefinitions />
+            </Query>
+          </QueryDefinition>
+        </rd:DesignerState>
+      </Query>
+      <Fields>
+        <Field Name="Country">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Level" UniqueName="[Customers].[Country].[Country]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Continent">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[Continent]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[Quantity]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Report3</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                      <FontSize>24pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>textbox1</rd:DefaultName>
+            <Height>0.43in</Height>
+            <Width>5in</Width>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Tablix Name="Tablix4">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox24">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Country</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox24</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox26">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Quantity</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox26</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Country">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Country.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Country</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Quantity">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Quantity.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Quantity</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <TablixHeader>
+                    <Size>1in</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox31">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Continent</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox31</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember />
+                  </TablixMembers>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Continent">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!Continent.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!Continent.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>1in</Size>
+                    <CellContents>
+                      <Textbox Name="Continent1">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!Continent.Value</Value>
+                                <Style>
+                                  <FontFamily>Arial</FontFamily>
+                                </Style>
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Continent1</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="Details" />
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DataSet1</DataSetName>
+            <Top>1.23833in</Top>
+            <Left>1.68625in</Left>
+            <Height>0.5in</Height>
+            <Width>3in</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>3.91208in</Height>
+        <Style />
+      </Body>
+      <Width>9.42583in</Width>
+      <Page>
+        <LeftMargin>1in</LeftMargin>
+        <RightMargin>1in</RightMargin>
+        <TopMargin>1in</TopMargin>
+        <BottomMargin>1in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>23c6586f-022f-4ffe-a486-30e3845ff8fd</rd:ReportID>
+</Report>

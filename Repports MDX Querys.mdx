@@ -1,0 +1,79 @@
+//rapport sur la quantité par pays continent et ville
+WITH 
+MEMBER Continent AS
+IIF(
+    [Customers].[Country].CurrentMember IS [Customers].[Country].&[Austria]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Belgium]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Denmark]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Finland]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[France]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Germany]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Ireland]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Italy]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Norway]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Poland]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Portugal]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Spain]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Sweden]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Switzerland]
+    OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[United Kingdom],
+    "Europe",
+    IIF(
+        [Customers].[Country].CurrentMember IS [Customers].[Country].&[United States]
+        OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Argentina]
+        OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Brazil]
+        OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Venezuela]
+        OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Mexico]
+        OR [Customers].[Country].CurrentMember IS [Customers].[Country].&[Canada],
+        "Amérique",
+        "ERROR"
+    )
+)
+
+SELECT
+NON EMPTY {Continent,[Measures].[Quantity]} ON 0,
+NON EMPTY {EXCEPT([Customers].[Country].[Country],{[Customers].[Country].[Unknown]})} * [Customers].[City].[City] ON 1
+FROM [Project]
+
+
+//visualiser les produits les plus vendus par pays
+
+SELECT 
+NON EMPTY {
+    [Measures].[Fait Sales Nombre]
+} ON COLUMNS,
+NON EMPTY {
+    [Customers].[Country].[Country].Members * 
+    TopCount([Products].[Product Name].[Product Name].Members, 1, [Measures].[Fait Sales Nombre])
+} ON ROWS
+FROM [Project]
+
+//tracer la courbe d’évolution des ventes par pays selon les années
+NON EMPTY {[Measures].[Fait Sales Nombre]} ON 0,
+NON EMPTY [Customers].[Country].[Country] * [Temps D].[Annee].[Annee] ON 1
+FROM [Project]
+// Rapport qui permet de visualiser Les produits qui sont dans le top des ventes en fonction des années
+
+WITH
+SET [Filtered] AS
+Filter(
+  [Products].[Product Name].[Product Name],
+  NOT IsEmpty(
+    {
+      [Temps D].[Annee].[Annee].Members
+    }
+  )
+)
+MEMBER [Measures].[MaxSales] AS
+Max(
+  [Filtered],
+  [Measures].[Fait Sales Nombre]
+)
+SET [TopProduct] AS
+Filter(
+ [Temps D].[Annee].[Annee] * [Products].[Product Name].[Product Name],
+  [Measures].[Fait Sales Nombre] = [Measures].[MaxSales]
+)
+SELECT NON EMPTY {[Measures].[MaxSales]} ON 0,
+NON EMPTY {[TopProduct]} ON 1
+FROM [Project]

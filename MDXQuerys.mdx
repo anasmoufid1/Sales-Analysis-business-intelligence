@@ -1,0 +1,78 @@
+//qest 1
+SELECT
+[Measures].[Discount] on 0,
+NonEmpty(Crossjoin([Customers].[Customer ID].[Customer ID], [Products].[Product Name].[Product Name])) on 1
+from [Project]
+//qest 2
+SELECT
+[Measures].[Discount] ON 0,
+NonEmpty(Crossjoin(
+[Customers].[Customer ID].[Customer ID],
+[Products].[Product Name].[Product Name],
+[Products].[Category ID].[Category ID]
+)) ON 1
+FROM [Project]
+//qest 3
+SELECT
+[Measures].[Fait Sales Nombre] ON 0,
+[Customers].[Country].[Country] ON 1
+FROM [Project]
+//qest 4
+SELECT
+[Measures].[Fait Sales Nombre] ON COLUMNS,
+TOPCOUNT([Customers].[Region].[Region], 1, [Measures].[Fait Sales Nombre]) ON ROWS
+FROM [Project]
+WHERE
+[Country].[Country].[United States]
+//qest 5
+SELECT
+[Measures].[Discount] ON COLUMNS,
+TopCount([Products].[Product Name].[Product Name], 1, [Measures].[Discount]) ON ROWS
+FROM [Project]
+//qest 6
+	//a
+SELECT 
+NON EMPTY {
+    [Measures].[Fait Sales Nombre]
+} ON COLUMNS,
+NON EMPTY {
+    [Customers].[Country].[Country].Members * 
+    TopCount([Products].[Product Name].[Product Name].Members, 1, [Measures].[Fait Sales Nombre])
+} ON ROWS
+FROM [Project]
+	//b
+SELECT 
+NON EMPTY {
+    [Measures].[Fait Sales Nombre]
+} ON COLUMNS,
+NON EMPTY {
+    [Customers].[Country].[Country].Members * 
+    {
+        BottomCount(
+            FILTER(
+                [Products].[Product Name].[Product Name].Members,
+                NOT IsEmpty([Measures].[Fait Sales Nombre]) AND NOT [Measures].[Fait Sales Nombre] IS NULL
+            ),
+            1,
+            [Measures].[Fait Sales Nombre]
+        )
+    }
+} ON ROWS
+FROM [Project]
+
+//qest 7
+WITH
+MEMBER [SalesPercentage] AS
+[Measures].[Fait Sales Nombre] /
+([Measures].[Fait Sales Nombre], [Customers].[Country].CurrentMember.Parent) * 100
+
+SELECT
+{ ([Measures].[Fait Sales Nombre]),( [Measures].[SalesPercentage]) } ON 0,
+NonEmpty(CrossJoin([Products].[Product Name].[Product Name].Members, [Customers].[Country].[Country].Members)) ON 1
+FROM [Project]
+//qest 8
+
+SELECT
+[Measures].[Fait Sales Nombre] on 0,
+nonempty([Temps D].[Annee].[Annee]) on 1
+From [Project]

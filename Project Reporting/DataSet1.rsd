@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>ProjectCube</DataSourceReference>
+      <CommandText>SELECT NON EMPTY { [Measures].[Fait Sales Nombre] } ON COLUMNS, NON EMPTY { ([Customers].[Country].[Country].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM [Project] CELL PROPERTIES VALUE, BACK_COLOR, FORE_COLOR, FORMATTED_VALUE, FORMAT_STRING, FONT_NAME, FONT_SIZE, FONT_FLAGS</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="ID_Customers___Country___Country___MEMBER_CAPTION_">
+        <DataField>[Customers].[Country].[Country].[MEMBER_CAPTION]</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ID_Customers___Country___Country___MEMBER_UNIQUE_NAME_">
+        <DataField>[Customers].[Country].[Country].[MEMBER_UNIQUE_NAME]</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__VALUE">
+        <DataField>[Measures].[Fait Sales Nombre].VALUE</DataField>
+        <rd:TypeName>System.Object</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__BACK_COLOR">
+        <DataField>[Measures].[Fait Sales Nombre].BACK_COLOR</DataField>
+        <rd:TypeName>System.UInt32</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FORE_COLOR">
+        <DataField>[Measures].[Fait Sales Nombre].FORE_COLOR</DataField>
+        <rd:TypeName>System.UInt32</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FORMATTED_VALUE">
+        <DataField>[Measures].[Fait Sales Nombre].FORMATTED_VALUE</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FORMAT_STRING">
+        <DataField>[Measures].[Fait Sales Nombre].FORMAT_STRING</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FONT_NAME">
+        <DataField>[Measures].[Fait Sales Nombre].FONT_NAME</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FONT_SIZE">
+        <DataField>[Measures].[Fait Sales Nombre].FONT_SIZE</DataField>
+        <rd:TypeName>System.UInt16</rd:TypeName>
+      </Field>
+      <Field Name="ID_Measures___Fait_Sales_Nombre__FONT_FLAGS">
+        <DataField>[Measures].[Fait Sales Nombre].FONT_FLAGS</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

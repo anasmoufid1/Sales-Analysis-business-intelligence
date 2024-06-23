@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.9.34616.47</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.9.34616.47</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2024-04-25T23:01:26.6125899Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="ProjectCube">
+      <DataSourceReference>ProjectCube</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>0a94036d-6a2a-4a68-b650-d158f965571a</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>ProjectCube</DataSourceName>
+        <CommandText>WITH 
+MEMBER Continent AS
+IIF(
+	[Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Austria]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Belgium]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Denmark]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Finland]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[France]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Germany]
+	OR [Customers].[Country].CurrentMember IS [Customers]. [Country].&amp;[Ireland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Italy]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Norway]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Poland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Portugal]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Spain]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Sweden]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Switzerland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[United Kingdom],
+	"Europe",
+IIF(
+	[Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[United States]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Argentina]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Brazil]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Venezuela]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Mexico]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Canada],
+	"Am�rique",
+	"ERROR"
+	)
+)
+
+SELECT
+non empty{{Continent, [Measures].[Quantity]}} ON 0,
+NONEMPTY (EXCEPT([Customers].[Country].[Country], {[Customers].[Country].&amp;[Unknown]})) ON 1
+FROM [Project]</CommandText>
+        <rd:DesignerState>
+          <QueryDefinition xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/AnalysisServices/QueryDefinition">
+            <CommandType>MDX</CommandType>
+            <Type>Query</Type>
+            <QuerySpecification xsi:type="MDXQuerySpecification">
+              <Select>
+                <Items>
+                  <Item>
+                    <ID xsi:type="Level">
+                      <DimensionName>Customers</DimensionName>
+                      <HierarchyName>Country</HierarchyName>
+                      <HierarchyUniqueName>[Customers].[Country]</HierarchyUniqueName>
+                      <LevelName>Country</LevelName>
+                      <UniqueName>[Customers].[Country].[Country]</UniqueName>
+                    </ID>
+                    <ItemCaption>Country</ItemCaption>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Continent</MeasureName>
+                      <UniqueName>[Measures].[Continent]</UniqueName>
+                    </ID>
+                    <ItemCaption>Continent</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                  <Item>
+                    <ID xsi:type="Measure">
+                      <MeasureName>Quantity</MeasureName>
+                      <UniqueName>[Measures].[Quantity]</UniqueName>
+                    </ID>
+                    <ItemCaption>Quantity</ItemCaption>
+                    <FormattedValue>true</FormattedValue>
+                  </Item>
+                </Items>
+              </Select>
+              <AutoExecute>false</AutoExecute>
+              <From>Project</From>
+              <Filter>
+                <FilterItems />
+              </Filter>
+              <Calculations />
+              <Aggregates />
+              <QueryProperties />
+            </QuerySpecification>
+            <Query>
+              <Statement>WITH 
+MEMBER Continent AS
+IIF(
+	[Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Austria]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Belgium]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Denmark]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Finland]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[France]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Germany]
+	OR [Customers].[Country].CurrentMember IS [Customers]. [Country].&amp;[Ireland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Italy]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Norway]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Poland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Portugal]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Spain]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Sweden]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Switzerland]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[United Kingdom],
+	"Europe",
+IIF(
+	[Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[United States]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Argentina]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Brazil]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Venezuela]
+	OR [Customers]. [Country].CurrentMember IS [Customers].[Country].&amp;[Mexico]
+	OR [Customers].[Country].CurrentMember IS [Customers].[Country].&amp;[Canada],
+	"Am�rique",
+	"ERROR"
+	)
+)
+
+SELECT
+non empty{{Continent, [Measures].[Quantity]}} ON 0,
+NONEMPTY (EXCEPT([Customers].[Country].[Country], {[Customers].[Country].&amp;[Unknown]})) ON 1
+FROM [Project]</Statement>
+              <ParameterDefinitions />
+            </Query>
+          </QueryDefinition>
+        </rd:DesignerState>
+      </Query>
+      <Fields>
+        <Field Name="Country">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Level" UniqueName="[Customers].[Country].[Country]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Continent">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[Continent]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Measure" UniqueName="[Measures].[Quantity]" /&gt;</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>quantity report</Value>
+                    <Style>
+                      <FontFamily>Segoe UI Light</FontFamily>
+                      <FontSize>24pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>textbox1</rd:DefaultName>
+            <Height>0.43in</Height>
+            <Width>5in</Width>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>2.93292in</Height>
+        <Style />
+      </Body>
+      <Width>8.47917in</Width>
+      <Page>
+        <LeftMargin>1in</LeftMargin>
+        <RightMargin>1in</RightMargin>
+        <TopMargin>1in</TopMargin>
+        <BottomMargin>1in</BottomMargin>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>80acea27-e541-476e-94ef-35691a812033</rd:ReportID>
+</Report>
